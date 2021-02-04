@@ -14,21 +14,20 @@ if [ "$BASH_FUTURES_DEF" == "" ]; then
     __futures_rec_counter=0
     
     function __futures_variable_set_lock(){
-        while __futures_variable_check_lock; do
+        while ! __futures_variable_check_lock ||  mkdir "$__futures_lock_directory/$__futures_var_lock_name"; do
             sleep $__futures_lock_check_granularity
-        done
-        touch "$__futures_lock_directory/$__futures_var_lock_name"
+	done
     }
     
     function __futures_variable_remove_lock(){
         ! __futures_variable_check_lock && return 0;
-        rm -rf "$__futures_lock_directory/$__futures_var_lock_name"
+        rm -rfd "$__futures_lock_directory/$__futures_var_lock_name"
     }
     
     #returns true if lock exists
     #returns false otherwise.
     function __futures_variable_check_lock(){
-         if [ -f "$__futures_lock_directory/$__futures_var_lock_name" ]; then
+         if [ -d "$__futures_lock_directory/$__futures_var_lock_name" ]; then
              return 0
          fi
          return 1

@@ -1,6 +1,6 @@
 # bash-futures
 
-#What is "bash-futures"?
+# What is "bash-futures"?
 "bash-futures" is a Futures implementation for Bash shells. It is written mainly
 to help in writing Bash Interactive Shell extensions, for situations where the
 human operator needs to kick off a process in order to generate a needed value while
@@ -9,10 +9,10 @@ needing to be able to continue to do other work in the meantime.
 It is in a very alpha state right now, and only supports Bash.
 
 
-#What is a "future"?
-In essence, a "future" is a promissory note. 
-The easiest way to think about it is to consider it to be like an "IOU" for 
-a value, except that there is actually a process/thread running in 
+# What is a "future"?
+In essence, a "future" is a promissory note.
+The easiest way to think about it is to consider it to be like an "IOU" for
+a value, except that there is actually a process/thread running in
 the background to generate that value. With the "future" in hand,
 the current process can continue and do other things until it absolutely
 needs the value the "future" provides. When that happens, it "waits"

@@ -3,16 +3,9 @@ if [ "$BASH_FUTURES_DEF" == "" ]; then
     BASH_FUTURES_DEF='defined'
 
     source bash-multi-trap.sh
+    source bash-futures-constants.sh
     #The locks here are all mutexes.
-    __futures_lock_dir_template='bash_futuresXXXXXX'
-    #__futures_lock_directory="$(mktemp -d bash_futuresXXXXXX)"
     __futures_lock_directory=''
-    __futures_var_lock_name="__futures_variable_lock"
-    __futures_lock_format="<futures_name>,<pid>"
-    __futures_lock_check_granularity=1000
-    __futures_rec_divider='/'
-    __futures_field_divider=":"
-    __futures_incomplete="not-finished"
     __futures_table=''
     __futures_rec_counter=0
     

@@ -1,9 +1,12 @@
 #!/bin/bash
 if [ "$BASH_FUTURES_DEF" == "" ]; then
     BASH_FUTURES_DEF='defined'
-    . bash-multi-trap.sh
+
+    source bash-multi-trap.sh
     #The locks here are all mutexes.
-    __futures_lock_directory="$(mktemp -d bash_futuresXXXXXX)"
+    __futures_lock_dir_template='bash_futuresXXXXXX'
+    #__futures_lock_directory="$(mktemp -d bash_futuresXXXXXX)"
+    __futures_lock_directory=''
     __futures_var_lock_name="__futures_variable_lock"
     __futures_lock_format="<futures_name>,<pid>"
     __futures_lock_check_granularity=1000
@@ -13,6 +16,7 @@ if [ "$BASH_FUTURES_DEF" == "" ]; then
     __futures_table=''
     __futures_rec_counter=0
     
+    source bash-futures-errcode.sh
     function __futures_variable_set_lock(){
         while ! __futures_variable_check_lock ||  mkdir "$__futures_lock_directory/$__futures_var_lock_name"; do
             sleep $__futures_lock_check_granularity
@@ -143,6 +147,12 @@ if [ "$BASH_FUTURES_DEF" == "" ]; then
         if [ "$BASH_FUTURES_DEF" = '' ]; then
             . bash_futures.sh
 	fi
+
+	touch /tmp/hello.txt
+	if [ $? -eq 1 ]; then
+            return  1;
+	fi
+	__futures_lock_directory=''  #Set this value here.
         __multi_trap_add "bash_futures" "__futures_destroy"
     }
     

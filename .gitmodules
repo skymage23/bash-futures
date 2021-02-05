@@ -7,3 +7,6 @@
 [submodule "test/libs/bats-support"]
 	path = test/libs/bats-support
 	url = https://github.com/ztombol/bats-support
+[submodule "bash-multi-trap"]
+	path = bash-multi-trap
+	url = https://github.com/skymage23/bash-multi-trap.git
